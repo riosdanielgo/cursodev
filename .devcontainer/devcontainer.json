@@ -1,0 +1,32 @@
+{
+  "name": "Node.js Project (v18 via .nvmrc)",
+  // Você pode usar uma imagem base mais simples, pois a feature cuidará do NVM
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu", 
+  
+  "features": {
+    // 💡 Esta feature instala o Node.js e o NVM, e usa a versão do .nvmrc
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "none",
+      "nodeGypDependencies": true
+      // O Codespaces automaticamente detecta o .nvmrc quando "version" é "none" ou "lts"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest"
+    }
+  },
+  
+  // Isso garante que o terminal seja configurado para carregar o NVM corretamente
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+
+  // Isso executa o npm install após a criação
+  "postCreateCommand": "npm install",
+  // O NVM deve ser carregado automaticamente se configurado como feature, mas deixamos o comando para garantir
+  "postStartCommand": "nvm use || /bin/bash -c '. /usr/local/share/nvm/nvm.sh && nvm use'" 
+}
